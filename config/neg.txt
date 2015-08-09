@@ -1,0 +1,5 @@
+/home/samuel/project/sandbox/jointCascade_py/config/neg/neg1.jpg
+/home/samuel/project/sandbox/jointCascade_py/config/neg/neg2.jpg
+/home/samuel/project/sandbox/jointCascade_py/config/neg/neg3.jpg
+/home/samuel/project/sandbox/jointCascade_py/config/neg/neg4.jpg
+/home/samuel/project/sandbox/jointCascade_py/config/neg/neg5.jpg

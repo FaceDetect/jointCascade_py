@@ -15,7 +15,7 @@ config = {
             'npRatio'    : 1.0 ,
             'cProbs'     : [0.9, 0.8, 0.7, 0.6, 0.5, 0.4],
             'radiuses'   : [0.4, 0.3, 0.2, 0.15, 0.12],
-            'weakCRNums' : [2], 
+            'weakCRNums' : [20], 
             'treeDepths' : [4],
             'feaNums'    : [2000]
             }
@@ -28,7 +28,7 @@ config = {
 	###    ./fonder/image2.jpg
         ###    ...
         'winSize'     : (80, 80),
-        'posList'     : "/home/samuel/project/sandbox/jointCascade_py/config/afw_train.txt",
+        'posList'     : "/home/samuel/project/sandbox/jointCascade_py/config/afw.txt",
         'negList'     : "/home/samuel/project/sandbox/jointCascade_py/config/neg.txt",
         'bootstrapPara':
             {

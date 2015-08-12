@@ -22,17 +22,17 @@ Install script on Ubuntu 14.04
 #### __Demo on AFW__    
 ---    
 
-Because AFW only contain 337 faces. If you want get a good result, please train on the big trainSet
+`I have trained a model based on AFW(only contain 337 faces) with 5 non-face images for demo`. You should train the model on a big dataset
 
 1. Download the AFW dataset [here](http://ibug.doc.ic.ac.uk/resources/facial-point-annotations/)
-2. Replace the location of afw by yourself in `afw_test.lst`, `afw_train.lst` and `neg.txt` in config folder(Mine is `/home/samuel/data`)
+2. Replace the location of afw by yourself in `afw.txt` and `neg.txt` in config folder(Mine is `/home/samuel/data`)
 3. Change `afw_config.py:dataPara:posList, negList` by yourself       
 
 * __Train on AFW__     
 >python -W ignore ./demo_train.py ../config/afw_config.py    
 
-* __Evaluate on AFW(Coming Soon...)__       
->./demo_evaluate.py  ../config/afw_model/train.model  ../config/afw_test.lst       
+* __Detection with the Pretrained AFW Model__   
+>python -W ignore ./demo_detect.py  ../config/afw_model/train.model  ../config/pos.jpg       
 
 
 #### __References__    

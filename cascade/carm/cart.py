@@ -25,9 +25,6 @@ class CART(object):
                                negSet, negIdxs, pntIdx,
                                bIsCls)
     
-    def validate(self, img, rect, initShape):
-        pass
-    
     def split(self, posSet, posIdxs,negSet, negIdxs, 
               pntIdx, bIsCls):
         tree = {}

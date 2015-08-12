@@ -6,12 +6,14 @@ import pickle
 from utils   import *
 from dator   import *
 from carm    import *
+import copy
 
 class JointCascador(object):
     """
     Joint Cascade for face detection and alignment
     """
     def __init__(self):     
+        self.winSize  = None
         self.name     = None
         self.version  = None
         self.stageNum = None
@@ -56,6 +58,7 @@ class JointCascador(object):
         begTime = time.time()
         posSet, negSet, bootstrap = self.dataWrapper.genTrainSet()        
         self.meanShape = posSet.meanShape
+        self.winSize   = posSet.winSize
         t = getTimeByStamp(begTime, 
                            time.time(), 'min')
         print("\tLoading Positive Data : %f mins"%(t))       
@@ -88,9 +91,42 @@ class JointCascador(object):
             self.curStageIdx = idx
             if 1 == flag:
                 break
+        return
             
-    def detect(self):
-        pass
+    def detect(self, imgArr, scaleF, step):
+        ho, wo = imgArr.shape        
+        scale = 1
+        
+        res = []
+        confs = []        
+        carm = self.carms[-1]
+        while True:
+            ws = (int)(wo*scale + 0.5)
+            hs = (int)(ho*scale + 0.5)
+            if ws<self.winSize[0] or hs<self.winSize[1]:
+                break
+            
+            ##order : 0-nearest 1-bilinear 3-cubic(default)
+            scaledArr = zoom(imgArr, (scale,scale), order=0)
+            
+            for h in xrange(0, hs-self.winSize[1]+1, step):
+                for w in xrange(0,ws-self.winSize[0]+1,step):
+                    initShape = copy.deepcopy(self.meanShape)
+                    detectRect = (w, h, 
+                                  self.winSize[0], 
+                                  self.winSize[1])
+                    flag, conf = carm.validate(scaledArr,
+                                               detectRect,
+                                               initShape)
+                    if 1 == flag:
+                        rect = (detectRect[0]/scale,
+                                detectRect[1]/scale,
+                                detectRect[2]/scale,
+                                detectRect[3]/scale)
+                        res.append(rect)
+                        confs.append(conf)
+            scale /= scaleF
+        return res, confs
     
     def loadModel(self, model):
         path_obj = open(model, 'r').readline().strip()      

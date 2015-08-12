@@ -49,9 +49,9 @@ class BoostCart(object):
                                                    bootstrap)
             t = getTimeByStamp(begTime, 
                                time.time(), 'hour')
-            s ="\n\t\tConsumed:%d, Find:%d, FP:%f, Time:%fh"
+            s ="\n\t\tConsumed:%d, Find:%d, FP:%.2f, Time:%fh"
             print(s%(consumed, findNum, 
-                     findNum*1.0/(consumed+1), t))
+                     findNum/(consumed+1e-6), t))
             if negSet.dataNum < negNum/2:
                 bNegIsNotEnough = 1
                 break

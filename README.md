@@ -37,8 +37,7 @@ Install script on Ubuntu 14.04
 
 ####  __TODO__    
 ---    
-1. Optimize the global regression into tree traversing     
-2. Use the __non-maximum suppression__  to find the best face rects instead to merge the rects via cv2.grouprects
+1. Use the __non-maximum suppression__  to find the best face rects instead to merge the rects via cv2.grouprects
 
 #### __References__    
 ---    

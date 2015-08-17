@@ -131,8 +131,32 @@ class BoostCart(object):
                                 negSet.winSize)
             negSet.initShapes[:,i,:] = negSet.initShapes[:,i,:] + delta
         t = getTimeByStamp(begTime, time.time(), 'min')
+
+        self.applyPntOffsetIntoTree()
         print("\t\tUpdate Shape      : %f mins"%t)
 
+    def applyPntOffsetIntoTree(self):
+        offset = 0
+        pntNum = len(self.globalReg)/2
+        for tree in self.carts:
+            feaDim = tree.leafNum
+            pntOffset = NP.zeros((feaDim, pntNum, 2))
+            for p in xrange(pntNum):
+                regX = self.globalReg[2*p]
+                regY = self.globalReg[2*p+1]
+                pntOffset[:,p,0]=regX.coef_[offset:offset+feaDim]
+                pntOffset[:,p,1]=regY.coef_[offset:offset+feaDim]
+            tree.pntOffset = pntOffset
+            offset += feaDim
+        ### set the intercept into the last tree
+        tree = self.carts[-1]
+        for p in xrange(pntNum):
+            regX = self.globalReg[2*p]
+            regY = self.globalReg[2*p+1]
+            tree.pntOffset[:,p,0] += regX.intercept_
+            tree.pntOffset[:,p,1] += regY.intercept_
+        
+            
     def getNegImgData(self, negSet, needNum, bootstrap):
         findNum  = 0
         consumed = 0
@@ -238,20 +262,6 @@ class BoostCart(object):
                 break
             fea[0, offset+leafIdx] = 1
             offset = offset + dim    
-
-        if len(self.globalReg) > 0:
-            pntNum = initShape.shape[0]
-            ### Get the residules
-            for i in xrange(pntNum):
-                regX = self.globalReg[2*i]
-                regY = self.globalReg[2*i+1]
-            
-                x = regX.predict(fea)
-                y = regY.predict(fea)
-                delta = NP.squeeze(NP.dstack((x,y)))
-                delta = NP.multiply(delta, 
-                                    (rect[2],rect[3]))
-                initShape[i,:] = initShape[i,:] + delta
         return flag, conf
 
 

@@ -44,6 +44,9 @@ class CART(object):
             ## Extract samples' confidence
             posSet.confs[posIdxs] += tree["prob"]
             negSet.confs[negIdxs] += tree["prob"]
+            self.pntOffset = NP.zeros((self.leafNum, 
+                                       posSet.pntNum, 2),
+                                      dtype=NP.float32)
             return tree
 
         ### Generate feature types     
@@ -322,4 +325,5 @@ class CART(object):
                 tree = tree["right"]
         
         leafIdx = tree["leafIdx"]
+        shape = shape + self.pntOffset[leafIdx]
         return tree["prob"], leafIdx, self.leafNum    

@@ -14,7 +14,7 @@ All of the following modules can be easily installed by `pip`
 > [OpenCV](http://opencv.org/) 
 
 Install script on Ubuntu 14.04   
->sudo aptitude install python-pip gfortran     
+>sudo aptitude install python-pip gfortran imagemagick     
 >sudo pip install pillow numpy scipy sklearn    
 >sudo aptitude install python-opencv
 
@@ -34,6 +34,11 @@ Install script on Ubuntu 14.04
 * __Detection with the Pretrained AFW Model__   
 >python -W ignore ./demo_detect.py  ../config/afw_model/train.model  ../config/pos.jpg       
 
+
+####  __TODO__    
+---    
+1. Optimize the global regression into tree traversing     
+2. Use the __non-maximum suppression__  to find the best face rects instead to merge the rects via cv2.grouprects
 
 #### __References__    
 ---    

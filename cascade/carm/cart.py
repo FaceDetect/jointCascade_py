@@ -246,10 +246,10 @@ class CART(object):
             th = tree["threshold"]
             point_a = shape[feaType[1]]
             point_b = shape[feaType[4]]            
-            point_a[0] = feaType[2]*imgW
-            point_a[1] = feaType[3]*imgH
-            point_b[0] = feaType[5]*imgW
-            point_b[1] = feaType[6]*imgH
+            point_a[0] += feaType[2]*imgW
+            point_a[1] += feaType[3]*imgH
+            point_b[0] += feaType[5]*imgW
+            point_b[1] += feaType[6]*imgH
             point_a = NP.around(point_a/pow(2,feaType[0]))
             point_b = NP.around(point_b/pow(2,feaType[0]))
             
@@ -290,10 +290,10 @@ class CART(object):
             th = tree["threshold"]
             point_a = shape[feaType[1]]
             point_b = shape[feaType[4]]            
-            point_a[0] = feaType[2]*imgW
-            point_a[1] = feaType[3]*imgH
-            point_b[0] = feaType[5]*imgW
-            point_b[1] = feaType[6]*imgH
+            point_a[0] += feaType[2]*imgW
+            point_a[1] += feaType[3]*imgH
+            point_b[0] += feaType[5]*imgW
+            point_b[1] += feaType[6]*imgH
             point_a = NP.around(point_a/pow(2,feaType[0]))
             point_b = NP.around(point_b/pow(2,feaType[0]))
             
